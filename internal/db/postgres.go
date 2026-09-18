@@ -5,10 +5,6 @@ import (
 	"time"
 )
 
-//Названия таблиц
-const (
-	usersTable = "users"
-)
 //Функция подключения к базе данных
 func ConnectPostgres(url string) (*sql.DB, error) {
 	//Открываем соединение

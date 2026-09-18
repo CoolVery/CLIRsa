@@ -4,12 +4,13 @@ import (
 	"context"
 	"database/sql"
 
+	"github.com/CoolVery/CLIRsa.git/internal/models"
 	"github.com/CoolVery/CLIRsa.git/internal/models/dto"
 )
 
 //Интерфейс для работы с моделью RsaUser
 type RsaUser interface {
-	CreateRsaUser(ctx context.Context , newRsaUser RsaUser) error
+	CreateRsaUser(ctx context.Context , newRsaUser models.User) (int, error)
 	GetRsaUser(ctx context.Context, rsaUserArgs dto.DtoRsaUser) (RsaUser, error)
 	UpdateRsaUser(ctx context.Context, rsaUserArgs dto.DtoRsaUser) (bool, error)
 	DeleteRsaUser(ctx context.Context, rsaUserArgs dto.DtoRsaUser) (bool, error)

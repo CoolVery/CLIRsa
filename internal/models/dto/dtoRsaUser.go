@@ -2,7 +2,10 @@ package dto
 
 import (
 	"errors"
+	"fmt"
+	"strings"
 )
+
 //Класс для комбинаторных запросов к модели
 type DtoRsaUser struct {
 	Id           *int `json:"id"`
@@ -21,3 +24,4 @@ func (dtoRU DtoRsaUser) Validate() error {
 	}
 	return nil
 }
+
