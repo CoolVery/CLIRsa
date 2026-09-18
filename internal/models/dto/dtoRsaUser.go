@@ -2,8 +2,6 @@ package dto
 
 import (
 	"errors"
-	"fmt"
-	"strings"
 )
 
 //Класс для комбинаторных запросов к модели
