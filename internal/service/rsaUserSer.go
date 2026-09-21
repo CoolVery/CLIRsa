@@ -9,10 +9,10 @@ import (
 )
 //Сервис для модели RsaUser
 type RsaUserSer struct {
-	rep *repository.RsaUserRep
+	rep repository.RsaUser
 }
 
-func NewRsaUserServ(rep *repository.RsaUserRep) *RsaUserSer {
+func NewRsaUserServ(rep repository.RsaUser) *RsaUserSer {
 	return &RsaUserSer{rep: rep}
 }
 //Реализация методов для работы с моделью

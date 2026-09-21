@@ -20,9 +20,9 @@ type Service struct {
 	RsaUser
 }
 //Метод создания нового сервиса
-func NewService(rep *repository.RsaUserRep) *Service {
+func NewService(rep repository.Repository) *Service {
 	return &Service{
-		RsaUser: NewRsaUserServ(rep),
+		RsaUser: NewRsaUserServ(rep.RsaUser),
 	}
 }
 

@@ -1,14 +1,15 @@
 package db
 
 import (
-	"database/sql"
 	"time"
+
+	"github.com/jmoiron/sqlx"
 )
 
 //Функция подключения к базе данных
-func ConnectPostgres(url string) (*sql.DB, error) {
+func ConnectPostgres(url string) (*sqlx.DB, error) {
 	//Открываем соединение
-	db, err := sql.Open("postgres", url)
+	db, err := sqlx.Open("postgres", url)
 	if err != nil {
 		return nil, err
 	}
