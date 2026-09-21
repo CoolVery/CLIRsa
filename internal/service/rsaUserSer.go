@@ -2,11 +2,13 @@ package service
 
 import (
 	"context"
+	"log"
 
 	"github.com/CoolVery/CLIRsa.git/internal/models"
 	"github.com/CoolVery/CLIRsa.git/internal/models/dto"
 	"github.com/CoolVery/CLIRsa.git/internal/repository"
 )
+
 //Сервис для модели RsaUser
 type RsaUserSer struct {
 	rep repository.RsaUser
@@ -23,8 +25,27 @@ func (ruSer *RsaUserSer) CreateRsaUser(ctx context.Context , newRsaUser models.U
 	}
 	return idUser, nil
 }
-func (ruSer *RsaUserSer) GetRsaUser(ctx context.Context, idUser int, rsaUserArgs dto.DtoRsaUser) (*models.User, error) {
-	getUser, err := ruSer.rep.GetRsaUser(ctx, idUser, rsaUserArgs)
+func (ruSer *RsaUserSer) GetRsaUser(ctx context.Context, idUser int, rsaUserArgs models.User) (*models.User, error) {
+	var rsaUserDTO dto.DtoRsaUser
+
+	if rsaUserArgs.UserLogin != "" {
+		rsaUserDTO.UserLogin = &rsaUserArgs.UserLogin
+	}
+	if rsaUserArgs.RsaKey != "" {
+		rsaUserDTO.RsaKey = &rsaUserArgs.RsaKey
+	}
+	if rsaUserArgs.RsaNum != "" {
+		rsaUserDTO.RsaNum = &rsaUserArgs.RsaNum
+	}
+	log.Printf("-- %s",rsaUserArgs.UserNameFull)
+	if rsaUserArgs.UserNameFull != "" {
+		rsaUserDTO.UserNameFull = &rsaUserArgs.UserNameFull
+	}
+	if rsaUserArgs.UserLogin != "" {
+		rsaUserDTO.UserLogin = &rsaUserArgs.UserLogin
+	}
+
+	getUser, err := ruSer.rep.GetRsaUser(ctx, idUser, rsaUserDTO)
 	if err != nil {
 		return nil, err
 	}

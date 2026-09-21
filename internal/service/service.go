@@ -11,7 +11,7 @@ import (
 //Интерфейс для работы с моделью RsaUser
 type RsaUser interface {
 	CreateRsaUser(ctx context.Context , newRsaUser models.User) (int, error)
-	GetRsaUser(ctx context.Context, idUser int, rsaUserArgs dto.DtoRsaUser) (*models.User, error)
+	GetRsaUser(ctx context.Context, idUser int, rsaUserArgs models.User) (*models.User, error)
 	UpdateRsaUser(ctx context.Context, idUser int, rsaUserArgs dto.DtoRsaUser) (bool, error)
 	DeleteRsaUser(ctx context.Context, idUser int) (bool, error)
 }

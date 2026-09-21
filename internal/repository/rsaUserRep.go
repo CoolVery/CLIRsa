@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log"
 	"strings"
 
 	"github.com/CoolVery/CLIRsa.git/internal/models"
@@ -72,12 +73,17 @@ func (ruRep *RsaUserRep) GetRsaUser(ctx context.Context, idUser int, rsaUserArgs
 		args = append(args, *rsaUserArgs.UserNameFull)
 		argInt++
 	}
-	if len(setValues) == 0 {
-		return nil, errors.New("no fields to update provided")
-	}
-	query := fmt.Sprintf(`SELECT * FROM %s WHERE user_id=$%d %s`, tables.UsersTable, argInt, setValues)
+
+	log.Println(argInt)
+	log.Println(setValues)
+	log.Println(args...)
+
+	setQuery := strings.Join(setValues, " ")
+	query := fmt.Sprintf(`SELECT * FROM %s WHERE user_id=$%d %s`, tables.UsersTable, argInt, setQuery)
 	args = append(args, idUser)
 
+	log.Println(setQuery)
+	log.Println(query)
 
 	err := ruRep.db.GetContext(ctx, &getUser, query, args...)
 	if err != nil {

@@ -6,6 +6,7 @@ package cmd
 import (
 	"os"
 
+	"github.com/CoolVery/CLIRsa.git/cmd/rsaUser"
 	"github.com/CoolVery/CLIRsa.git/internal/service"
 	"github.com/spf13/cobra"
 )
@@ -21,7 +22,7 @@ var rootCmd = &cobra.Command{
 }
 //Добавление остальных подкоманд
 func Execute(rsaUserServ service.Service) {
-	rootCmd.AddCommand(GetUserInfo(rsaUserServ))
+	rootCmd.AddCommand(cmd.GetUserInfo(rsaUserServ))
 	err := rootCmd.Execute()
 	
 	if err != nil {
