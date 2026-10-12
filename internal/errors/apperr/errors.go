@@ -9,4 +9,6 @@ var (
 	ErrContextCanceled = errors.New("Котнекст был отменен")
 	ErrContextTimeout = errors.New("Конекст не успел выполниться за таймер")
 	ErrContextDeadline = errors.New("Контекст не успел выполнить до дедлайна")
+	ErrEnvFileLoad = errors.New("Файл .env не был прочитан, возможно, что его не существует")
+	ErrDbConnect = errors.New("Не удалось установить связь с базой данных")
 )

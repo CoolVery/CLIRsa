@@ -8,6 +8,7 @@ import (
 
 	"github.com/CoolVery/CLIRsa.git/cmd"
 	"github.com/CoolVery/CLIRsa.git/internal/config"
+	"github.com/CoolVery/CLIRsa.git/internal/errors/apperr"
 	"github.com/CoolVery/CLIRsa.git/internal/repository"
 	"github.com/CoolVery/CLIRsa.git/internal/service"
 	"github.com/jmoiron/sqlx"
@@ -16,16 +17,17 @@ import (
 )
 
 func main() {
+
 	//Чтение конфигурации из .env
 	if err := godotenv.Load(".env"); err != nil {
-        log.Fatalf("no .env file, using system env")
+        log.Fatalf("env: %v", apperr.ErrEnvFileLoad)
     }
 	//Создание конфига для бд
 	cfg := config.Load()
 	//Подключение к бд
 	db, err := sqlx.Connect("postgres", cfg.ConnectToPostgres())
 	if err != nil {
-		log.Fatalf("db err %v", err)
+		log.Fatalf("db err %v", apperr.ErrDbConnect)
 	}
 	defer db.Close()
 	//Создание репозитория
