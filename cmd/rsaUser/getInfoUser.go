@@ -34,7 +34,6 @@ func GetUserInfo(rsaUserServ service.Service) *cobra.Command {
 	rsaUser.Flags().StringVarP(&serachRsaUser.RsaNum, "rsa-num-user", "n", "", "Добавить в условие поиска Номер RSA пользователя")
 
 
-	_ = rsaUser.MarkFlagRequired("id-user")
 	return rsaUser
 }
 

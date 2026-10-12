@@ -14,7 +14,7 @@ type DtoRsaUser struct {
 }
 //Функция проверки полей модели
 func (dtoRU DtoRsaUser) Validate() error {
-	if dtoRU.RsaKey == nil && dtoRU.RsaNum == nil && dtoRU.UserLogin == nil && dtoRU.UserNameFull == nil {
+	if dtoRU.RsaKey == nil && dtoRU.RsaNum == nil && dtoRU.UserLogin == nil && dtoRU.UserNameFull == nil && dtoRU.Id == nil {
 		return errors.New("all user date is null")
 	}
 	if dtoRU.RsaKey != nil && len(*dtoRU.RsaKey) != 40 {

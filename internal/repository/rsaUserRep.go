@@ -51,26 +51,32 @@ func (ruRep *RsaUserRep) GetRsaUser(ctx context.Context, idUser int, rsaUserArgs
 	argInt := 1
 
 	if rsaUserArgs.RsaKey != nil {
-		setValues = append(setValues, fmt.Sprintf("AND rsa_key=$%d", argInt))
+		setValues = append(setValues, fmt.Sprintf("rsa_key=$%d", argInt))
 		args = append(args, *rsaUserArgs.RsaKey)
 		argInt++
 	}
 
+	if rsaUserArgs.Id != nil {
+		setValues = append(setValues, fmt.Sprintf("user_id=$%d", argInt))
+		args = append(args, *rsaUserArgs.Id)
+		argInt++
+	}
+
 	if rsaUserArgs.RsaNum != nil {
-		setValues = append(setValues, fmt.Sprintf("AND rsa_num=$%d", argInt))
+		setValues = append(setValues, fmt.Sprintf("rsa_num=$%d", argInt))
 		args = append(args, *rsaUserArgs.RsaNum)
 		argInt++
 	}
 
 	if rsaUserArgs.UserLogin != nil {
-		setValues = append(setValues, fmt.Sprintf("AND user_login=$%d", argInt))
-		args = append(args, *rsaUserArgs.UserLogin)
+		setValues = append(setValues, fmt.Sprintf("user_login LIKE $%d", argInt))
+		args = append(args, fmt.Sprintf("%%%s%%", *rsaUserArgs.UserLogin))
 		argInt++
 	}
 
 	if rsaUserArgs.UserNameFull != nil {
-		setValues = append(setValues, fmt.Sprintf("AND user_name_full=$%d", argInt))
-		args = append(args, *rsaUserArgs.UserNameFull)
+		setValues = append(setValues, fmt.Sprintf("user_name_full LIKE $%d", argInt))
+		args = append(args, fmt.Sprintf("%%%s%%", *rsaUserArgs.UserNameFull))
 		argInt++
 	}
 
@@ -78,9 +84,14 @@ func (ruRep *RsaUserRep) GetRsaUser(ctx context.Context, idUser int, rsaUserArgs
 	log.Println(setValues)
 	log.Println(args...)
 
-	setQuery := strings.Join(setValues, " ")
-	query := fmt.Sprintf(`SELECT * FROM %s WHERE user_id=$%d %s`, tables.UsersTable, argInt, setQuery)
-	args = append(args, idUser)
+	setQuery := strings.Join(setValues, " AND ")
+	var query string
+	if len(setQuery) == 0 {
+		return nil, errors.New("Не было задано ни одного поля для фильтра")
+	} else {
+		query = fmt.Sprintf(`SELECT * FROM %s WHERE %s`, tables.UsersTable, setQuery)
+	}
+	args = append(args)
 
 	log.Println(setQuery)
 	log.Println(query)

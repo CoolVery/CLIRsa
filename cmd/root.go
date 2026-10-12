@@ -14,7 +14,7 @@ import (
 // rootCmd - корневая команда
 var rootCmd = &cobra.Command{
 	Use:   "CLIRsa",
-	Short: "A brief description of your application",
+	Short: "Приложение для работы с RSA",
 	Long: `Главная команда`,
 	Run: func(cmd *cobra.Command, args []string) { 
 		
