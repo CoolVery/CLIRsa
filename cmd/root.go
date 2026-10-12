@@ -23,6 +23,7 @@ var rootCmd = &cobra.Command{
 //Добавление остальных подкоманд
 func Execute(rsaUserServ service.Service) {
 	rootCmd.AddCommand(cmd.GetUserInfo(rsaUserServ))
+	rootCmd.AddCommand(cmd.UpdateRsaOnServers())
 	err := rootCmd.Execute()
 	
 	if err != nil {
