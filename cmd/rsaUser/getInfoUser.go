@@ -1,8 +1,6 @@
 package cmd
 
 import (
-	"fmt"
-
 	"github.com/CoolVery/CLIRsa.git/internal/models"
 	"github.com/CoolVery/CLIRsa.git/internal/service"
 	"github.com/spf13/cobra"
@@ -20,7 +18,7 @@ func GetUserInfo(rsaUserServ service.Service) *cobra.Command {
 			if err != nil {
 				return err
 			}
-			fmt.Println(getUser)
+			getUser.Print()
 			return nil
 		},
     }

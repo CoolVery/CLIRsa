@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"log"
 
 	"github.com/CoolVery/CLIRsa.git/internal/models"
 	"github.com/CoolVery/CLIRsa.git/internal/models/dto"
@@ -48,7 +47,6 @@ func (ruSer *RsaUserSer) GetRsaUser(ctx context.Context, idUser int, rsaUserArgs
 	if err := rsaUserDTO.Validate(); err != nil {
 		return nil, err
 	}
-	log.Println(rsaUserDTO.Validate())
 	getUser, err := ruSer.rep.GetRsaUser(ctx, idUser, rsaUserDTO)
 	if err != nil {
 		return nil, err

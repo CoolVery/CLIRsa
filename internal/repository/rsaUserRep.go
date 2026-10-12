@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"log"
 	"strings"
 
 	"github.com/CoolVery/CLIRsa.git/internal/errors/apperr"
@@ -82,16 +81,9 @@ func (ruRep *RsaUserRep) GetRsaUser(ctx context.Context, idUser int, rsaUserArgs
 		argInt++
 	}
 
-	log.Println(argInt)
-	log.Println(setValues)
-	log.Println(args...)
-
 	setQuery := strings.Join(setValues, " AND ")
 	var query string
 	query = fmt.Sprintf(`SELECT * FROM %s WHERE %s`, tables.UsersTable, setQuery)
-
-	log.Println(setQuery)
-	log.Println(query)
 
 	err := ruRep.db.GetContext(ctx, &getUser, query, args...)
 	if err != nil {
