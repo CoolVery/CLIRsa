@@ -11,7 +11,8 @@
             "request": "launch",
             "mode": "auto",
             "console": "externalTerminal",
-            "program": "${fileDirname}"
+            "program": "${fileDirname}",
+            "args": ["user"],
         }
     ]
 }

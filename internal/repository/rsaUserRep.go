@@ -7,6 +7,8 @@ import (
 	"log"
 	"strings"
 
+	"github.com/CoolVery/CLIRsa.git/internal/errors/apperr"
+	"github.com/CoolVery/CLIRsa.git/internal/errors/dberr"
 	"github.com/CoolVery/CLIRsa.git/internal/models"
 	"github.com/CoolVery/CLIRsa.git/internal/models/dto"
 	"github.com/CoolVery/CLIRsa.git/internal/models/tables"
@@ -87,15 +89,13 @@ func (ruRep *RsaUserRep) GetRsaUser(ctx context.Context, idUser int, rsaUserArgs
 	setQuery := strings.Join(setValues, " AND ")
 	var query string
 	query = fmt.Sprintf(`SELECT * FROM %s WHERE %s`, tables.UsersTable, setQuery)
-	
-	args = append(args)
 
 	log.Println(setQuery)
 	log.Println(query)
 
 	err := ruRep.db.GetContext(ctx, &getUser, query, args...)
 	if err != nil {
-		return nil, err
+		return nil, dberr.MapGet(err, apperr.ErrUserNotExistInDB)
 	}
 	return &getUser, nil
 }
