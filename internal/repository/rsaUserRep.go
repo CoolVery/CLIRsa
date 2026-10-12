@@ -86,11 +86,8 @@ func (ruRep *RsaUserRep) GetRsaUser(ctx context.Context, idUser int, rsaUserArgs
 
 	setQuery := strings.Join(setValues, " AND ")
 	var query string
-	if len(setQuery) == 0 {
-		return nil, errors.New("Не было задано ни одного поля для фильтра")
-	} else {
-		query = fmt.Sprintf(`SELECT * FROM %s WHERE %s`, tables.UsersTable, setQuery)
-	}
+	query = fmt.Sprintf(`SELECT * FROM %s WHERE %s`, tables.UsersTable, setQuery)
+	
 	args = append(args)
 
 	log.Println(setQuery)

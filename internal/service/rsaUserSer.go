@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"log"
 
 	"github.com/CoolVery/CLIRsa.git/internal/models"
 	"github.com/CoolVery/CLIRsa.git/internal/models/dto"
@@ -27,12 +26,13 @@ func (ruSer *RsaUserSer) CreateRsaUser(ctx context.Context , newRsaUser models.U
 }
 func (ruSer *RsaUserSer) GetRsaUser(ctx context.Context, idUser int, rsaUserArgs models.User) (*models.User, error) {
 	var rsaUserDTO dto.DtoRsaUser
-
+	
 	if rsaUserArgs.UserId != 0 {
 		rsaUserDTO.Id = &rsaUserArgs.UserId
 	}
 	if rsaUserArgs.UserLogin != "" {
 		rsaUserDTO.UserLogin = &rsaUserArgs.UserLogin
+
 	}
 	if rsaUserArgs.RsaKey != "" {
 		rsaUserDTO.RsaKey = &rsaUserArgs.RsaKey
@@ -40,12 +40,12 @@ func (ruSer *RsaUserSer) GetRsaUser(ctx context.Context, idUser int, rsaUserArgs
 	if rsaUserArgs.RsaNum != "" {
 		rsaUserDTO.RsaNum = &rsaUserArgs.RsaNum
 	}
-	log.Printf("-- %s",rsaUserArgs.UserNameFull)
 	if rsaUserArgs.UserNameFull != "" {
 		rsaUserDTO.UserNameFull = &rsaUserArgs.UserNameFull
 	}
-	if rsaUserArgs.UserLogin != "" {
-		rsaUserDTO.UserLogin = &rsaUserArgs.UserLogin
+	
+	if err := rsaUserDTO.Validate(); err != nil {
+		return nil, err
 	}
 
 	getUser, err := ruSer.rep.GetRsaUser(ctx, idUser, rsaUserDTO)

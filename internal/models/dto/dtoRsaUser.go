@@ -1,7 +1,7 @@
 package dto
 
 import (
-	"errors"
+	"github.com/CoolVery/CLIRsa.git/internal/errors/apperr"
 )
 
 //Класс для комбинаторных запросов к модели
@@ -15,10 +15,10 @@ type DtoRsaUser struct {
 //Функция проверки полей модели
 func (dtoRU DtoRsaUser) Validate() error {
 	if dtoRU.RsaKey == nil && dtoRU.RsaNum == nil && dtoRU.UserLogin == nil && dtoRU.UserNameFull == nil && dtoRU.Id == nil {
-		return errors.New("all user date is null")
+		return apperr.ErrNotFilter
 	}
 	if dtoRU.RsaKey != nil && len(*dtoRU.RsaKey) != 40 {
-		return errors.New("uncorrect RsaKey")
+		return apperr.ErrRsaLen
 	}
 	return nil
 }
